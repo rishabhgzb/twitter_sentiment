@@ -1,10 +1,6 @@
 ###################################################
 # File Name: model_creation.py                    #
 # Creation Date: 25 June 2019                     #
-# Author: Liyogar B                               #
-# Rev History                                     #
-# 25/6/2019 - Liyogar B - Initial version         #
-# 26/6/2019 - Rishabh A - Preprocessing           #
 ###################################################
 
 from tweepy.streaming import StreamListener

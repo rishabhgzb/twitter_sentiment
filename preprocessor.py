@@ -1,9 +1,6 @@
 ###################################################
 # File Name: model_creation.py                    #
 # Creation Date: 25 June 2019                     #
-# Author: Rishabh A                               #
-# Rev History                                     #
-# 26/6/2019 - Rishabh A - Initial version         #
 ###################################################
 
 import json
@@ -110,7 +107,7 @@ def addpolarity():
                             sum_word += 1
 
                         else:
-                            sumnum += 0
+                            #sumnum += 0
                             sum_word += 1
 
 
@@ -131,7 +128,7 @@ def addpolarity():
                 else:
                     print("****")
                     
-                
+
             sum_var = []    
             varid = k[counter]
             sum_var.append(varid)
@@ -165,7 +162,7 @@ def savetoxlsx():
     
 #file: input data for training: RA
 def runall(file):
-    print("file name: ",file)
+    #print("file name: ",file)
     getdata(file)
     readdict('data/dictionary.tsv')
     
