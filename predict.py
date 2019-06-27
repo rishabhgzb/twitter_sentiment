@@ -27,47 +27,100 @@ consumer_secret = '4eEpERpqaXsv0squUMbEZ7zMWkPLtNU7PyYpyaSJCwUi5KCbhF'
 access_token = '1143039002150260736-WaTDkw2y9BTDpXskzhZzfpMJ5PvUQi'
 access_secret = 'uAdRRhrzOp4WQ6Su6L4FFPL3Xvizc3XjaSoBxe1wRbojw'
 
+print("Loading pickel")
+dt = joblib.load('models/dTree.pkl')
+print("Model Loaded successfully")
+vectorizer = joblib.load('models/vectr.pkl')
+
+
+
+'''def predictSentim(data):
+    print("I am in  PREDICT")
+    #print(data)
+
+    #with open('data/inp.txt','w') as tf:
+    #    tf.write(data)
+        #tf.close()
+    #x.clear()
+    #tweeet_inputs.append(preprocessor.getTweetText('data/inp.txt'))
+    x = preprocessor.getTweetText(data)
+    #if(path.exists('data/inp.txt')):
+    #    os.remove('data/inp.txt')
+    #    print("File deleted")
+    #print("Step 1: File Deleted!")
+
+    print("--------------------------------------------------")
+    print(x)
+    print("--------------------------------------------------")
+    print(preprocessor.getTweetText(data))
+    time.sleep(5)
+    #print(x[0])
+    inputdtree= vectorizer.transform([x[0]])
+    
+    predictt = dt.predict(inputdtree)
+	
+    if predictt == 1:
+        predictt = "Positive"
+        #Counter_positive += 1
+    elif predictt == 0:
+        predictt = "Neutral"
+        #Counter_neutral+=1
+    elif predictt == -1:
+        predictt = "Negative"
+        #Counter_Negative+=1
+    else:
+        print("Nothing")
+    
+    print("\n*****************")
+    print(predictt)
+    print("*****************")'''
+
+        #CreatePlot(Counter_positive, Counter_neutral, Counter_Negative)'''
+
 class StdOutListener(StreamListener):
 
     def __init__(self,model,vectr):
         self.model = model
-        self.vectr = vectr #CountVectorizer(stop_words='english') #vectr
-		
-		Counter_positive = 0
-		Counter_Negative = 0
-		Counter_neutral = 0
+        self.vectr = vectr #CountVectorizer(stop_words='english') #vectr		
+        #Counter_positive = 0
+        #Counter_Negative = 0
+        #Counter_neutral = 0
 
     def on_data(self, data):
+        #print("on data called")
+        #predictSentim(data)
         #msg = "You are so stupid."
-        with open('data/inp.txt','w') as tf:
-            tf.write(data)
-            #tf.close()
-        #print(data)
-        x = preprocessor.getTweetText('data/inp.txt')
-        print("--------------------------------------------------")
-        print(x[0])
-        print("--------------------------------------------------")
-        #print(x[0])
-        inputdtree= self.vectr.transform(x)
+		
+        x = preprocessor.getTweetText(data)
+    #if(path.exists('data/inp.txt')):
+    #    os.remove('data/inp.txt')
+    #    print("File deleted")
+    #print("Step 1: File Deleted!")
+
+        print("---------------Tweet-----------------------------------")
+        print(x)
+        print("-------------------------------------------------------")
+        #print(preprocessor.getTweetText(data))
+    #print(x[0])
+        inputdtree= self.vectr.transform([x[0]])
         predictt = self.model.predict(inputdtree)
-    
         if predictt == 1:
             predictt = "Positive"
-			Counter_positive += 1
+            #Counter_positive += 1
         elif predictt == 0:
             predictt = "Neutral"
-			Counter_neutral+=1
+            #Counter_neutral+=1
         elif predictt == -1:
             predictt = "Negative"
-			Counter_Negative+=1
+            #Counter_Negative+=1
         else:
             print("Nothing")
     
         print("\n*****************")
         print(predictt)
         print("*****************")
-		
-		#CreatePlot(Counter_positive, Counter_neutral, Counter_Negative)
+        time.sleep(5)
+        print("-------------------------------------------------------")
         return True
 
     def on_error(self, status):
@@ -94,7 +147,7 @@ if __name__ == '__main__':
     l = StdOutListener(dt,vectorizer)
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_secret)
-    print("Step 3: Downloading data")
+    print("processing live tweets")
     stream = Stream(auth, l)
 
     stream.filter(track=['depression', 'anxiety', 'mental health', 'suicide', 'stress', 'sad'])

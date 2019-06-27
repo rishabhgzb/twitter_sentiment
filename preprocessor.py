@@ -40,11 +40,49 @@ def getdata(dataurl):
     time.sleep(1)
     processdata()
 
+	
+def getdata_str(data):
+    #print("===========================")
+    #print(data)
+    #print("===========================")
+    #print("Retrieving TXT File")
+    tweet = json.loads(data)
+    tweets_data.clear()
+    tweets_data.append(tweet)
+    #print(tweet)
+
+    #time.sleep(10)
+    #print("-------------------------------------tweet-----------------------------------------")
+	
+    #tweets_data_path = dataurl
+    #tweets_file = open(tweets_data_path, "r")
+    '''for line in data:
+        try:
+            tweet = json.loads(line)
+            print("-------------------------------------tweet-----------------------------------------")
+            time.sleep(10)
+            print(tweet)
+            tweets_data.append(tweet)
+        except:
+            continue'''
+    #print("===========================")
+    #print("Retrieving Successfull")
+    #print("=========================== \n \n")
+    global x
+    #print("x in getdata_str")
+    #print(x)
+    x.clear()
+	
+    #print("x in getdata_str after clear")
+    #print(x)
+	#y.clear()
+    time.sleep(1)
+    processdata()
 
 def processdata():
-    print("===========================")
-    print("Recovering Data Teets")
-    print("===========================")
+    #print("===========================")
+    #print("Recovering Data Teets")
+    #print("===========================")
     time.sleep(1)
     RE_EMOJI = re.compile('[\U00010000-\U0010ffff]', flags=re.UNICODE)
     for i in range(len(tweets_data)):
@@ -54,14 +92,12 @@ def processdata():
         i = q.translate(str.maketrans('','',string.punctuation))
         x.append(i)
         k.append(o)
-    print("===========================")
-    print("Data Tweets Recovered")
-    print("===========================\n\n")
-    print(x)
-    print("k",k)
-    
-    
-    
+    #print("===========================")
+    #print("Data Tweets Recovered")
+    #print("===========================\n\n")
+    #print(x)
+    #print("k",k)
+        
 def readdict(dataurl):
     print("===========================")
     print("Reading Dictionary")
@@ -166,9 +202,10 @@ def runall(file):
     getdata(file)
     readdict('data/dictionary.tsv')
     
-def getTweetText(file):
-    #print("file name: ",file)
-    getdata(file)
+def getTweetText(str):
+
+    #print("file name: ",str)
+    getdata_str(str)
     return x
 	#readdict('data/dictionary.tsv')
 
